@@ -37,7 +37,9 @@ export default function Form()
           console.log(newBlob.url)
           var arr = newBlob.url.split("/")
           var fullFileName = arr[arr.length - 1];
-          redirect("/summary/"+fullFileName);
+          //redirect("/summary/"+fullFileName);
+          location.replace("/summary/"+fullFileName)
+          
         }}
       >
         <input name="file" ref={inputFileRef} type="file" required />
