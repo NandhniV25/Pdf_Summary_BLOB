@@ -1,6 +1,10 @@
-import Form from "./ui/update-pdf-form";
+'use client';
+
+import type { PutBlobResult } from '@vercel/blob';
+import { useState, useRef } from 'react';
 
 export default function Page() {
+  const inputFileRef = useRef<HTMLInputElement>(null);
   return (
     <>
       <div className="container-xl bg-white h-screen p-2">
@@ -19,8 +23,32 @@ export default function Page() {
               <div className="flex flex-col items-center justify-center bg-white">
                 <div className="rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col items-center justify-center w-3/5 h-48" style={{ border: '2px dashed black' }}>
                   <div className="p-6 pt-0">
-                    <input type="file" accept="application/pdf" style={{ display: 'none' }} className="file-input" />
-                    <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary underline-offset-4 hover:underline h-10 px-4 py-2">
+                    <input onChange={async (event) => {
+                      event.preventDefault();
+
+                      if (!inputFileRef.current?.files) {
+                        throw new Error("No file selected");
+                      }
+
+                      const file = inputFileRef.current.files[0];
+
+                      const response = await fetch(
+                        `/api/document?filename=${file.name}`,
+                        {
+                          method: 'POST',
+                          body: file,
+                        },
+                      );
+
+                      const newBlob = (await response.json()) as PutBlobResult;
+
+                      console.log(newBlob.url)
+                      var arr = newBlob.url.split("/")
+                      var fullFileName = arr[arr.length - 1];
+                      location.href = "/summary/" + fullFileName;
+                    }
+                    } ref={inputFileRef} type="file" accept="application/pdf" style={{ display: 'none' }} className="file-input" />
+                    <button onClick={() => inputFileRef.current?.click()} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary underline-offset-4 hover:underline h-10 px-4 py-2">
                       <div className="flex flex-col">
                         <img alt="logo" loading="lazy" width="50" height="50" decoding="async" data-nimg="1" className="md:ml-32 ml-12" style={{ color: 'transparent' }} src="/file.webp" />
                         <div className="overflow-hidden overflow-ellipsis whitespace-nowrap flex flex-col md:flex-row justify-center items-center">
