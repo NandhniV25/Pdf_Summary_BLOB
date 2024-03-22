@@ -13,6 +13,7 @@
     "@types/node": "20.5.7",
     "@vercel/blob": "^0.22.1",
     "@vercel/postgres": "^0.5.0",
+    "@xata.io/client": "^0.29.3",
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",

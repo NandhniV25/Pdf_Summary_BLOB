@@ -1,0 +1,14 @@
+{
+  "id": "mig_cnukn1jc6suddmap9340",
+  "parentID": "mig_cnukm73c6suddmap9330",
+  "checksum": "1:8f432d0dcd909b099450664fb68b5593134ae12a13136b6ceb2a3ceb3c8ab8e5",
+  "operations": [
+    {
+      "renameColumn": {
+        "newName": "file_url",
+        "oldName": "file_content",
+        "table": "TestTable"
+      }
+    }
+  ]
+}

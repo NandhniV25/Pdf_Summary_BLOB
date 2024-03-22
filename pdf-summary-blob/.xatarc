@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://NandhniV25-s-workspace-396fgt.ap-southeast-2.xata.sh/db/pdf-summary-blob",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
