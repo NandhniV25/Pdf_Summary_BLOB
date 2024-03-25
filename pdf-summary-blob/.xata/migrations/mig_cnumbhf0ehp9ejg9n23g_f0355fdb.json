@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnumbhf0ehp9ejg9n23g",
+  "parentID": "mig_cnumb17g1769t2paffog",
+  "checksum": "1:f0355fdbe1ef2b3fdc53eced78c415b8d83f8c7db3515abe48dc83fb0e387a4c",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "myUploadUrl",
+          "type": "string"
+        },
+        "table": "TestTable"
+      }
+    }
+  ]
+}

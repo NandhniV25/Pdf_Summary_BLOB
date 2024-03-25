@@ -7,17 +7,42 @@ import type {
 } from "@xata.io/client";
 
 const tables = [
-  { name: "TestTable", columns: [{ name: "file_url", type: "file[]" }] },
+  {
+    name: "PDFDcouments",
+    columns: [
+      { name: "file_name", type: "string" },
+      {
+        name: "file_content",
+        type: "file",
+        file: { defaultPublicAccess: true },
+      },
+    ],
+  },
+  {
+    name: "PDFDocuments",
+    columns: [
+      { name: "file_name", type: "string" },
+      {
+        name: "file_content",
+        type: "file",
+        file: { defaultPublicAccess: true },
+      },
+    ],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type TestTable = InferredTypes["TestTable"];
-export type TestTableRecord = TestTable & XataRecord;
+export type PDFDcouments = InferredTypes["PDFDcouments"];
+export type PDFDcoumentsRecord = PDFDcouments & XataRecord;
+
+export type PDFDocuments = InferredTypes["PDFDocuments"];
+export type PDFDocumentsRecord = PDFDocuments & XataRecord;
 
 export type DatabaseSchema = {
-  TestTable: TestTableRecord;
+  PDFDcouments: PDFDcoumentsRecord;
+  PDFDocuments: PDFDocumentsRecord;
 };
 
 const DatabaseClient = buildClient();

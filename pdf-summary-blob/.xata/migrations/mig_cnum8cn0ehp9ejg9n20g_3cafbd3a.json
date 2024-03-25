@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnum8cn0ehp9ejg9n20g",
+  "parentID": "mig_cnukn1jc6suddmap9340",
+  "checksum": "1:3cafbd3ad4c117eadbec3fee1faeceafb2df67722e989f60f01eca588ad2bfad",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "TestTable"
+      }
+    }
+  ]
+}

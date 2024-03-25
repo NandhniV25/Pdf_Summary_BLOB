@@ -1,7 +1,6 @@
 'use client';
 
-import type { PutBlobResult } from '@vercel/blob';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function Page() {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -31,23 +30,38 @@ export default function Page() {
                       }
 
                       const file = inputFileRef.current.files[0];
+                      try {
+                        // Call the server API from step 1 above
+                        //
+                        const response = await fetch('/api/create-record?fileName=' + file.name, {
+                          method: 'POST'
+                        });
+                        if (response.status !== 200) {
+                          throw new Error("Couldn't create record");
+                        }
 
-                      const response = await fetch(
-                        `/api/document?filename=${file.name}`,
-                        {
-                          method: 'POST',
-                          body: file,
-                        },
-                      );
+                        const responseJson = await response.json();
+                        debugger;
+                        console.log("responseJson " + responseJson.myUploadUrl)
+                        console.log("responseJsonid " + responseJson.id)
 
-                      const newBlob = (await response.json()) as PutBlobResult;
-
-                      console.log(newBlob.url)
-                      var arr = newBlob.url.split("/")
-                      var fullFileName = arr[arr.length - 1];
-                      location.href = "/summary/" + fullFileName;
-                    }
-                    } ref={inputFileRef} type="file" accept="application/pdf" style={{ display: 'none' }} className="file-input" />
+                        try {
+                          // Put the file inside a FormData object
+                          const formData = new FormData();
+                          const fileObj = file;
+                          formData.append('fileType', fileObj.type);
+                          // Use `myUploadUrl` from the server response to upload the file on the client
+                          await fetch(responseJson.myUploadUrl, { method: 'PUT', body: file });
+                          location.href = "/summary/" + responseJson.id
+                        } catch (error) {
+                          debugger;
+                          throw new Error("Couldn't upload image because the image wasn't accepted");
+                        }
+                      } catch (error) {
+                        debugger;
+                        throw new Error("Couldn't upload image because the record wasn't created");
+                      }
+                    }} ref={inputFileRef} type="file" accept="application/pdf" style={{ display: 'none' }} className="file-input" />
                     <button onClick={() => inputFileRef.current?.click()} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary underline-offset-4 hover:underline h-10 px-4 py-2">
                       <div className="flex flex-col">
                         <img alt="logo" loading="lazy" width="50" height="50" decoding="async" data-nimg="1" className="md:ml-32 ml-12" style={{ color: 'transparent' }} src="/file.webp" />

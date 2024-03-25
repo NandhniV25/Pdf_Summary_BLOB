@@ -1,0 +1,12 @@
+{
+  "id": "mig_cnumr1fg1769t2paffs0",
+  "parentID": "mig_cnumq0bc6suddmap94dg",
+  "checksum": "1:997607d796eff777a06a0ccd1bdf8ba5ba06675607e41498defb293d9032d260",
+  "operations": [
+    {
+      "addTable": {
+        "table": "PDFDocuments"
+      }
+    }
+  ]
+}

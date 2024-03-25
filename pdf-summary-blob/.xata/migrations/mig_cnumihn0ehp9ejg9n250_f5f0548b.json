@@ -1,0 +1,19 @@
+{
+  "id": "mig_cnumihn0ehp9ejg9n250",
+  "parentID": "mig_cnumbhf0ehp9ejg9n23g",
+  "checksum": "1:f5f0548b6f48385d03d19c35523c10770c4137e0fbc2df11f13685eba7548718",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "fill_c",
+          "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+        },
+        "table": "TestTable"
+      }
+    }
+  ]
+}

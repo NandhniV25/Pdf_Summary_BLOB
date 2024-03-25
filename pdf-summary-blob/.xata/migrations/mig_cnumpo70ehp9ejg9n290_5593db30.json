@@ -1,0 +1,19 @@
+{
+  "id": "mig_cnumpo70ehp9ejg9n290",
+  "parentID": "mig_cnumpiv0ehp9ejg9n280",
+  "checksum": "1:5593db307094c0d46384dc10159c6d4f4afd45a556884675dbef8ec9c44f4263",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "file_content",
+          "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+        },
+        "table": "PDFDcouments"
+      }
+    }
+  ]
+}

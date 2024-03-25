@@ -1,0 +1,13 @@
+{
+  "id": "mig_cnumaung1769t2paffng",
+  "parentID": "mig_cnumamfg1769t2paffmg",
+  "checksum": "1:98d77aa66cd4b1030f6e3c236e8051940c6b3c4d38077e1a4d4241fd473a9da4",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "myFileColumnName",
+        "table": "TestTable"
+      }
+    }
+  ]
+}

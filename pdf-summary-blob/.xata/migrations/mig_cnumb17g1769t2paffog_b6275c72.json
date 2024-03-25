@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnumb17g1769t2paffog",
+  "parentID": "mig_cnumaung1769t2paffng",
+  "checksum": "1:b6275c72e83fdb2d7d2b717bf208b807711199f668609e1cb58233fc89828432",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "myFileColumnName",
+          "type": "json"
+        },
+        "table": "TestTable"
+      }
+    }
+  ]
+}

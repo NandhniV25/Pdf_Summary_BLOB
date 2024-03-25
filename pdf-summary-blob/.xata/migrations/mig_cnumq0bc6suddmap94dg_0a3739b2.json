@@ -1,0 +1,12 @@
+{
+  "id": "mig_cnumq0bc6suddmap94dg",
+  "parentID": "mig_cnumpo70ehp9ejg9n290",
+  "checksum": "1:0a3739b21726a2399b6f4596bfb4aaa6f1e5ef74d933936cce4fcf798a23f814",
+  "operations": [
+    {
+      "removeTable": {
+        "table": "TestTable"
+      }
+    }
+  ]
+}

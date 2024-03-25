@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnumr4f0ehp9ejg9n2a0",
+  "parentID": "mig_cnumr1fg1769t2paffs0",
+  "checksum": "1:f63c89e6fede00cac7a44a23c54c743ca4c1e17c40e39c839b20b25875ffdcd5",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "file_name",
+          "type": "string"
+        },
+        "table": "PDFDocuments"
+      }
+    }
+  ]
+}
