@@ -7,6 +7,18 @@ export default async function Page({ params }: { params: { id: string } }) {
     const downloadUrl = record?.file_content?.url;
     console.log(downloadUrl)
 
+    const axios = require('axios').default;
+
+    const { data } = await axios.post('https://nandhniv25--pdf-to-text-web-endpoint-readpdffile.modal.run', {
+        url: downloadUrl
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    )
+
+    //console.log(data)
     const viewParams = "#toolbar=0&navpanes=0&scrollbar=0"
 
     return (
@@ -27,9 +39,9 @@ export default async function Page({ params }: { params: { id: string } }) {
                     >
                     </iframe>
                 </div>
-                <div className="w-1/2 bg-blue-200 p-4">
+                <div className="w-1/2 bg-white-200 p-4">
                     <div className="h-full flex justify-center items-center">
-                        <p className="text-center text-5xl">Interact with chat GPT</p>
+                        <p className="h-full flex text-center text-l">{data}</p>
                     </div>
                 </div>
             </div>
