@@ -1,8 +1,14 @@
 import { xata } from "@/utils/xata";
+import OpenAI from 'openai';
+import { OpenAIStream, streamToResponse } from 'ai';
+import { Suspense } from 'react';
 
 export default async function Page({ params }: { params: { id: string } }) {
     const record = await xata.db.PDFDocuments.read(params.id);
     console.log(record);
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const downloadUrl = record?.file_content?.url;
     console.log(downloadUrl)
@@ -20,6 +26,25 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     //console.log(data)
     const viewParams = "#toolbar=0&navpanes=0&scrollbar=0"
+    var prompt = "Your task is to generate summary for"
+        + "the given text limited by triple backticks."
+        + "```" + data + "```"
+    //console.log(prompt)
+    const response = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        stream: true,
+        messages: [
+            {
+                role: 'user',
+                content: prompt,
+            },
+        ],
+    });
+
+    // Convert the response into a friendly text-stream
+    const stream = OpenAIStream(response);
+
+    const reader = stream.getReader();
 
     return (
         <div className="container-xl bg-white h-screen p-2">
@@ -41,10 +66,37 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div>
                 <div className="w-1/2 bg-white-200 p-4">
                     <div className="h-full flex justify-center items-center">
-                        <p className="h-full flex text-center text-l">{data}</p>
+                        <p className="h-full flex text-center text-l">    <Suspense>
+                            <Reader reader={reader} />
+                        </Suspense></p>
                     </div>
                 </div>
             </div>
         </div >
+    );
+}
+
+
+async function Reader({
+    reader,
+}: {
+    reader: ReadableStreamDefaultReader<any>;
+}) {
+    const { done, value } = await reader.read();
+
+    //console.log(done, value)
+    if (done) {
+        return null;
+    }
+
+    const text = new TextDecoder().decode(value);
+
+    return (
+        <span>
+            {text}
+            <Suspense>
+                <Reader reader={reader} />
+            </Suspense>
+        </span>
     );
 }
