@@ -6,9 +6,14 @@ import { Suspense } from 'react';
 export default async function Page({ params }: { params: { id: string } }) {
     const record = await xata.db.PDFDocuments.read(params.id);
     console.log(record);
-    const openai = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
+    // const openai = new OpenAI({
+    //     apiKey: process.env.OPENAI_API_KEY,
+    // });
+    const anyscale = new OpenAI({
+        apiKey: process.env.OPENROUTER_API_KEY || "",
+        baseURL: "https://openrouter.ai/api/v1",
     });
+
 
     const downloadUrl = record?.file_content?.url;
     console.log(downloadUrl)
@@ -30,8 +35,8 @@ export default async function Page({ params }: { params: { id: string } }) {
         + "the given text limited by triple backticks."
         + "```" + data + "```"
     //console.log(prompt)
-    const response = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
+    const response = await anyscale.chat.completions.create({
+        model: 'anthropic/claude-3-sonnet:beta',
         stream: true,
         messages: [
             {
